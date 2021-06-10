@@ -1,4 +1,4 @@
-FROM gcr.io/huntingmill/common/base
+FROM gcr.io/webera/base
 
 
 RUN set -x && \
