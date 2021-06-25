@@ -1,13 +1,13 @@
 FROM gcr.io/webera/base
 
+COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -x && \
-    apt-get update && apt-get install -qq -y nfs-kernel-server && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir /exports
-
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +rx /usr/local/bin/docker-entrypoint.sh
+    apt-get update && apt-get install -qq -y nfs-kernel-server \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir /exports \
+    && chown 33:33 /exports \
+    && chmod +rx /usr/local/bin/docker-entrypoint.sh 
 
 VOLUME /exports
 
