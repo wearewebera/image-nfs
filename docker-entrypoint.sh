@@ -21,7 +21,7 @@ function start()
         fi
         echo "Serving $i"
     done
-
+    
     # start rpcbind if it is not started yet
     /usr/sbin/rpcinfo 127.0.0.1 > /dev/null; s=$?
     if [ $s -ne 0 ]; then
@@ -39,6 +39,9 @@ function start()
     /usr/sbin/rpc.nfsd -G 10 -N 2 -V 3
     /sbin/rpc.statd --no-notify
     echo "NFS started"
+
+    #Change permitions of /exports
+    chown -R 33:33 /exports
 }
 
 function stop()
