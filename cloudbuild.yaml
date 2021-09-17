@@ -1,0 +1,14 @@
+substitutions:
+  _IMAGE_NAME: nfs
+  _REGISTRY_NAME: gcr.io/webera
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+    - 'build'
+    - --tag=${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
+    - --tag=${_REGISTRY_NAME}/${_IMAGE_NAME}:$SHORT_SHA
+    - .
+images:
+  - ${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
+  - ${_REGISTRY_NAME}/${_IMAGE_NAME}:$SHORT_SHA
