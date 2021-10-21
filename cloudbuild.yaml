@@ -4,11 +4,11 @@ substitutions:
 
 steps:
 - name: 'gcr.io/cloud-builders/docker'
+  entrypoint: /bin/bash
   args: 
-    - 'build'
-    - --tag=${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
-    - --tag=${_REGISTRY_NAME}/${_IMAGE_NAME}:$SHORT_SHA
-    - .
-images:
-  - ${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
-  - ${_REGISTRY_NAME}/${_IMAGE_NAME}:$SHORT_SHA
+    - -c
+    - |
+      date -u +$SHORT_SHA-%Y%m%dT%H%M > _TAG
+      docker build -t ${_REGISTRY_NAME}/${_IMAGE_NAME}:$(cat _TAG) -t ${_REGISTRY_NAME}/${_IMAGE_NAME}:latest .
+      docker push ${_REGISTRY_NAME}/${_IMAGE_NAME}:$(cat _TAG)
+      docker push ${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
