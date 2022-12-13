@@ -15,6 +15,8 @@ name: Build Container Image to Docker HUB
 # Controls when the workflow will run
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 2'
   push:
     branches:
       - main
