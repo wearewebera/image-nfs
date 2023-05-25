@@ -17,10 +17,10 @@ jobs:
 
         - name: Update runlog.md
           run: |
-            echo "## $(date)" > runlog.md
+            echo "## $(date)" > .runlog.md
             git config --local user.email "support@webera.com"
             git config --local user.name "Webera Support"
-            git add chanlog.md
+            git add .runlog.md
             git commit -m "Update Run Log"
             git push
     
