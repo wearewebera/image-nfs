@@ -1,0 +1,26 @@
+
+# Because GitHub Actions are disable after 59 days of innactivity, this workflow will update the change log every month to keep the actions alive.
+name: Update Change Log
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+    update:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repository as working directory
+          uses: actions/checkout@v3
+          with:
+            ref: main
+
+        - name: Update runlog.md
+          run: |
+            echo "## $(date)" > runlog.md
+            git config --local user.email "support@webera.com"
+            git config --local user.name "Webera Support"
+            git add chanlog.md
+            git commit -m "Update Run Log"
+            git push
+    

@@ -1,49 +1,31 @@
-#
-# Github Action to build container images to be available on Docker HUB.
-#
-#  * Repositories must be named as "image-[NAME]" or will be skipped;
-#  * Dockerfile is expected on repository root;
-#  * Push image to Docker HUB except when trigged by Pull Request;
-#
-#  This action should be used for public and privates images;
-#  Please, set image as private on Docker HUB settings as need;
-#
+# 
 
-# Workflow name
 name: Build Container Image to Docker HUB
-
-# Controls when the workflow will run
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 2'
+    - cron: '0 0 * * 1'
   push:
     branches:
       - main
     paths-ignore:
       - '.github/**'
       - 'README.md'
+      - 'LICENSE'
+      - 'runlog.md'
   pull_request:
     branches:
       - main
     paths-ignore:
       - '.github/**'
       - 'README.md'
+      - 'LICENSE'
+      - 'runlog.md'
 
-# Just one job at this time
 jobs:
-
-  # Job name
-  Job-Docker-Build:
-
-    # Github Action runner
+  build:
+    name: Build and push container image
     runs-on: ubuntu-latest
-
-    # Job condition to run
-    # Required because container image name is retrived from image-[NAME]
-    if: startsWith(github.event.repository.name, 'image-')
-
-    # Tasks
     steps:
       - name: Checkout repository as working directory
         uses: actions/checkout@v3
