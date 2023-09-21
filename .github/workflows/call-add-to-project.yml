@@ -1,0 +1,13 @@
+---
+name: Call add issues to Webera Projects
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  call-add-to-project:
+    uses: wearewebera/webera/.github/workflows/add-to-project.yml@main
+    secrets:
+      ADD_TO_PROJECT_PAT: ${{ secrets.ADD_TO_PROJECT_PAT }}
