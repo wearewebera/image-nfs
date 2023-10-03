@@ -6,6 +6,10 @@ on:
     types:
       - opened
 
+permissions:
+  issues: write
+
+
 jobs:
   call-add-to-project:
     uses: wearewebera/webera/.github/workflows/add-to-project.yml@main
