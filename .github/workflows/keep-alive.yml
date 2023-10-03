@@ -1,10 +1,14 @@
 
-# Because GitHub Actions are disable after 59 days of innactivity, this workflow will update the change log every month to keep the actions alive.
+# Because GitHub Actions are disabled after 59 days of inactivity, this workflow will update the change log every month to keep the actions alive.
 name: Update Change Log
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 0 1 * *"
+
+permissions:
+  contents: write
 
 jobs:
     update:
